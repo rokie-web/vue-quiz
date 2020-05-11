@@ -4,7 +4,11 @@
     <b-container>
       <b-row>
         <b-col sm="8" offset="2">
-          <QuestionBox :currentQuestion="questions[index]" />
+          <QuestionBox 
+            v-if="questions.length"
+            :currentQuestion="questions[index]" 
+            :next="next"
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -33,6 +37,11 @@ export default {
     })
       .then(response => response.json())
       .then(jsonData => this.questions = jsonData.results)
+  },
+  methods: {
+    next() {
+      this.index++
+    }
   }
 }
 </script>
