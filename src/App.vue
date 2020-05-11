@@ -1,7 +1,13 @@
 <template>
   <div id="app">
     <Header />
-    <QuestionBox />
+    <b-container>
+      <b-row>
+        <b-col sm="8" offset="2">
+          <QuestionBox />
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
