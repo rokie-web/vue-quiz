@@ -21,11 +21,17 @@ export default {
     Header,
     QuestionBox
   },
+  data() {
+    return {
+      questions: []
+    }
+  },
   mounted: () => {
     fetch('https://opentdb.com/api.php?amount=10&category=27&type=multiple', {
       method: 'get'
     })
       .then((response) => response.json())
+      .then((jsonData) => this.questions = jsonData.results)
   }
 }
 </script>
