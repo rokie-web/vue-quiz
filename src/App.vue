@@ -4,7 +4,7 @@
     <b-container>
       <b-row>
         <b-col sm="8" offset="2">
-          <QuestionBox />
+          <QuestionBox :currentQuestion="questions[index]" />
         </b-col>
       </b-row>
     </b-container>
@@ -21,28 +21,18 @@ export default {
     Header,
     QuestionBox
   },
-  data() {
+  data: function() {
     return {
-      questions: []
+      questions: [],
+      index: 0
     }
   },
-  mounted: () => {
+  mounted: function() {
     fetch('https://opentdb.com/api.php?amount=10&category=27&type=multiple', {
       method: 'get'
     })
-      .then((response) => response.json())
-      .then((jsonData) => this.questions = jsonData.results)
+      .then(response => response.json())
+      .then(jsonData => this.questions = jsonData.results)
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
