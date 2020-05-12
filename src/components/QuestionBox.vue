@@ -9,9 +9,9 @@
 
             <b-list-group>
                 <b-list-group-item button
-                    v-for="(answer, index) in answers" 
+                    v-for="(answer, index) in shuffledAnswers" 
                     :key="index"
-                    :class="[selectedIndex === index && 'active']"
+                    :class="answerStyleHandler(index)"
                     @click="selectAnswer(index)"
                 >
                     {{ answer }}
@@ -87,6 +87,23 @@ export default {
             this.answered = true
 
             this.increment(isCorrect)
+        },
+        answerStyleHandler(index) {
+            let answerStyleClass = ''
+
+            const isIndexSelectedIndex = this.selectedIndex === index
+            const isIndexCorrectIndex = this.correctIndex === index
+
+            if (!this.answered && isIndexSelectedIndex) {
+                answerStyleClass = 'active'
+            } else if (this.answered && isIndexCorrectIndex) {
+                answerStyleClass = 'correct'
+            } else if (this.answered && this.selectedIndex === index && !isIndexCorrectIndex) {
+                answerStyleClass = 'incorrect'
+            }
+
+            return answerStyleClass
+
         }
     }
 }
