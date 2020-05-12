@@ -2,6 +2,7 @@
     <div>
         <b-nav tabs>
             <b-nav-item disabled><b>Fancy Quiz App</b></b-nav-item>
+            <b-nav-item disabled>Questions Total: {{ questionsTotal }}</b-nav-item>
             <b-nav-item disabled>Counter: {{ numCorrect }} / {{ numTotal }}</b-nav-item>
         </b-nav>
     </div>
@@ -11,7 +12,8 @@
 export default {
     props: [
         'numCorrect',
-        'numTotal'
+        'numTotal',
+        'questionsTotal'
     ]
 }
 </script>

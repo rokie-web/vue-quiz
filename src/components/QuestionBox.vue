@@ -2,33 +2,47 @@
     <div class="question-box-container">
         <b-jumbotron>
             <template v-slot:lead>
-                {{ currentQuestion.question }}
+                <span 
+                    v-if="currentQuestion"
+                    v-html="currentQuestion.question"
+                >
+                    {{ currentQuestion.question }}
+                </span>
+
+                <span v-else>
+                    <center>Congratualtions! You are done!</center>
+                </span>
             </template>
 
-            <hr class="my-4">
+            <span v-if="currentQuestion">
+                <hr class="my-4">
 
-            <b-list-group>
-                <b-list-group-item button
-                    v-for="(answer, index) in shuffledAnswers" 
-                    :key="index"
-                    :class="answerStyleHandler(index)"
-                    @click="selectAnswer(index)"
+                <b-list-group>
+                    <b-list-group-item button
+                        v-for="(answer, index) in shuffledAnswers" 
+                        :key="index"
+                        :class="answerStyleHandler(index)"
+                        @click="selectAnswer(index)"
+                    >
+                        <span v-html="answer">{{ answer }}</span>
+                    </b-list-group-item>
+                </b-list-group>
+
+                <b-button 
+                    variant="primary"
+                    @click="submitAnswer"
+                    :disabled="selectedIndex === null || this.answered"
                 >
-                    {{ answer }}
-                </b-list-group-item>
-            </b-list-group>
+                    Submit
+                </b-button>
 
-            <b-button 
-                variant="primary"
-                @click="submitAnswer"
-                :disabled="selectedIndex === null || this.answered"
-            >
-                Submit
-            </b-button>
-
-            <b-button variant="success" @click="next">
-                Next
-            </b-button>
+                <b-button 
+                    variant="success" 
+                    @click="next"
+                >
+                    Next
+                </b-button>
+            </span>
         </b-jumbotron>
     </div>
 </template>
@@ -65,7 +79,7 @@ export default {
             handler() {
                 this.selectedIndex = null 
                 this.answered = false
-                this.shuffleAnswers()
+                this.currentQuestion && this.shuffleAnswers()
             }
         }
     },

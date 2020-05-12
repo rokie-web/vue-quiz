@@ -3,6 +3,7 @@
     <Header
       :numCorrect="numCorrect"
       :numTotal="numTotal"
+      :questionsTotal="questions.length"
      />
     <b-container>
       <b-row>
